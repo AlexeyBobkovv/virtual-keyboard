@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring */
-import keys from './keyStore';
+import keys from '../store/keyStore';
 
 const createKeys = (lang) => {
   const keyWrapperArr = [];

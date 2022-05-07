@@ -1,10 +1,10 @@
-import createKeys from '../helpers/renderKeys';
+import keyboardStore from '../store/store';
 
 const init = () => {
   const contentContainer = document.createElement('div');
   contentContainer.classList.add('container');
 
-  const keysArr = createKeys();
+  const { keysArr } = keyboardStore;
   const row1 = document.createElement('div');
   const row2 = document.createElement('div');
   const row3 = document.createElement('div');
@@ -25,7 +25,7 @@ const init = () => {
   }
 
   const textArea = document.createElement('textarea');
-  textArea.classList.add('textarea');
+  textArea.setAttribute('id', 'textarea');
 
   keyboardWrapper.append(...rowArr);
   contentContainer.append(textArea, keyboardWrapper);

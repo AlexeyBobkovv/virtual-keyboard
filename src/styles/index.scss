@@ -18,7 +18,7 @@ html {
   min-height: 100vh;
 }
 
-.textarea {
+#textarea {
   display: block;
   width: 1000px;
   height: 300px;
@@ -27,6 +27,7 @@ html {
 
   background-color: black;
   border: 1px solid #108223;
+  color: #108223;
 }
 
 .keyboard-wrapper {
