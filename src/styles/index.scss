@@ -1,7 +1,103 @@
-$font-size: 1rem;
-$font-color: lch(53 105 40);
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 html {
-  font-size: $font-size;
-  color: $font-color;
+  font-size: 20px;
+  background-color: black;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 10px;
+  min-height: 100vh;
+}
+
+.textarea {
+  display: block;
+  width: 1000px;
+  height: 300px;
+  padding: 10px;
+  font-size: 23px;
+
+  background-color: black;
+  border: 1px solid #108223;
+}
+
+.keyboard-wrapper {
+  max-width: 1008px;
+  width: 100%;
+  background-color: black;
+}
+
+.row {
+  display: flex;
+}
+
+.key {
+  width: 60px;
+  height: 60px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4px;
+  transition: .2s;
+  cursor: pointer;
+  user-select: none;
+  color: #108223;
+  background-color: black;
+  border: 1px solid #108223;
+
+  &:hover {
+    color: #fff;
+  }
+
+  &.active {
+    background-color: #333;
+    color: #fff;
+    border-radius: 50px;
+  }
+}
+
+.Backspace {
+  width: 120px;
+}
+
+.Tab {
+  width: 90px;
+}
+
+.CapsLock {
+  width: 128px;
+}
+
+.Enter {
+  width: 128px;
+}
+
+.ShiftRight,
+.ShiftLeft {
+  width: 128px;
+}
+
+.Space {
+  max-width: 465px;
+  width: 100%;
+}
+
+.caseDown,
+.caseUp,
+.caps,
+.shiftCaps {
+  min-height: 60px;
+}
+
+.hidden {
+  display: none;
 }
