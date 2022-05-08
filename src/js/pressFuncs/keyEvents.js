@@ -111,6 +111,46 @@ const enterEvent = (event, pos) => {
   }
 };
 
+const deleteEvent = (event, pos) => {
+  const textArea = document.querySelector('#textarea');
+
+  if (event.code === 'Delete' && event.type === 'keydown') {
+    if (pos >= 0 && textArea.selectionStart === textArea.selectionEnd) {
+      textArea.value =
+        textArea.value.slice(0, pos) +
+        textArea.value.slice(pos + 1, textArea.value.length);
+    }
+    if (textArea.selectionStart !== textArea.selectionEnd) {
+      textArea.value =
+        textArea.value.slice(0, textArea.selectionStart) +
+        textArea.value.slice(textArea.selectionEnd, textArea.value.length);
+    }
+    textArea.selectionStart = pos;
+    textArea.selectionEnd = pos;
+  }
+};
+
+const backspaceEvent = (event, pos) => {
+  const textArea = document.querySelector('#textarea');
+
+  if (event.code === 'Backspace' && event.type === 'keydown') {
+    if (pos > 0 && textArea.selectionStart === textArea.selectionEnd) {
+      textArea.value =
+        textArea.value.slice(0, pos - 1) +
+        textArea.value.slice(pos, textArea.value.length);
+      textArea.selectionStart = pos - 1;
+      textArea.selectionEnd = pos - 1;
+    }
+    if (textArea.selectionStart !== textArea.selectionEnd) {
+      textArea.value =
+        textArea.value.slice(0, textArea.selectionStart) +
+        textArea.value.slice(textArea.selectionEnd, textArea.value.length);
+      textArea.selectionStart = pos;
+      textArea.selectionEnd = pos;
+    }
+  }
+};
+
 export {
   capsLckSwitch,
   capsLckEvent,
@@ -118,4 +158,6 @@ export {
   shiftEvent,
   tabEvent,
   enterEvent,
+  deleteEvent,
+  backspaceEvent,
 };

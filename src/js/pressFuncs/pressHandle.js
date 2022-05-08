@@ -7,6 +7,8 @@ import {
   shiftEvent,
   tabEvent,
   enterEvent,
+  deleteEvent,
+  backspaceEvent,
 } from './keyEvents';
 
 let { isCapsOn, isShiftOn } = keyboardStore;
@@ -19,8 +21,12 @@ const pressHandle = (event) => {
 
   capsLckSwitch(event);
   shiftSwitch(event);
+
   tabEvent(event, pos);
   enterEvent(event, pos);
+
+  deleteEvent(event, pos);
+  backspaceEvent(event, pos);
 
   keyboardStore.keysArr.forEach((el) => {
     const arr = Array.from(el.children);
@@ -41,6 +47,7 @@ const pressHandle = (event) => {
       !el.classList.contains('AltRight') &&
       !el.classList.contains('ControlRight') &&
       !el.classList.contains('Backspace') &&
+      !el.classList.contains('Delete') &&
       !el.classList.contains('Enter') &&
       !el.classList.contains('ShiftRight') &&
       el.classList.contains(event.code) &&
