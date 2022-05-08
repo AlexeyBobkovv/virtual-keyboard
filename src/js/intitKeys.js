@@ -1,4 +1,5 @@
 import { keysArr } from './pressFuncs/pressHandle';
+import clickHandle from './clickFuncs/clickHandle';
 
 const init = () => {
   const contentContainer = document.createElement('div');
@@ -16,6 +17,8 @@ const init = () => {
   keyboardWrapper.classList.add('keyboard-wrapper');
 
   for (let i = 0; i < keysArr.length; i += 1) {
+    keysArr[i].addEventListener('mousedown', clickHandle);
+    keysArr[i].addEventListener('mouseup', clickHandle);
     if (i < 14) row1.append(keysArr[i]);
     if (i >= 14 && i < 29) row2.append(keysArr[i]);
     if (i >= 29 && i < 42) row3.append(keysArr[i]);

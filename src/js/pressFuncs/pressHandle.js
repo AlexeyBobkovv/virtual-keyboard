@@ -15,8 +15,8 @@ import {
   ctrlAltEvent,
 } from './keyEvents';
 
-let keyboardLanguage = localStorage.getItem('keyboardLanguage') || 'en';
-const keysArr = createKeys(keyboardLanguage);
+let lang = localStorage.getItem('lang') || 'en';
+const keysArr = createKeys(lang);
 
 let { isCapsOn, isShiftOn } = keyboardStore;
 
@@ -36,10 +36,10 @@ const pressHandle = (event) => {
   backspaceEvent(event, pos);
 
   if (event.ctrlKey && event.altKey && event.type === 'keydown') {
-    if (keyboardLanguage === 'en') {
-      keyboardLanguage = 'ru';
+    if (lang === 'en') {
+      lang = 'ru';
     } else {
-      keyboardLanguage = 'en';
+      lang = 'en';
     }
   }
 
@@ -78,6 +78,6 @@ const pressHandle = (event) => {
 };
 
 window.addEventListener('beforeunload', () =>
-  localStorage.setItem('keyboardLanguage', keyboardLanguage),
+  localStorage.setItem('lang', lang),
 );
 export { pressHandle, keysArr };

@@ -1,14 +1,12 @@
-import { disableBtnType, enableBtnType } from './btnTypeSwitches';
-import keyboardStore from '../../store/keyStore';
-
-let { isCapsOn, isShiftOn } = keyboardStore;
+import { disableBtnType, enableBtnType } from '../../helpers/btnTypeSwitches';
+import keyboardStore from '../../store/store';
 
 const isEventCodeEqualsClass = (el, eventCode) =>
   el.classList.contains(eventCode);
 
 const capsLckSwitch = (event) => {
   if (event.code === 'CapsLock' && event.type === 'keydown') {
-    isCapsOn = !isCapsOn;
+    keyboardStore.switchCaps();
   }
 };
 
@@ -29,6 +27,8 @@ const capsLckEvent = (event, el, filteredArr) => {
   }
 
   if (event.code === 'CapsLock' && event.type === 'keydown') {
+    const { isCapsOn, isShiftOn } = keyboardStore;
+
     if (isCapsOn && !isShiftOn) {
       disableBtnType(filteredArr, 'caseDown');
       enableBtnType(filteredArr, 'caps');
@@ -54,17 +54,19 @@ const shiftSwitch = (event) => {
     (event.code === 'ShiftLeft' || event.code === 'ShiftRight') &&
     event.type === 'keydown'
   ) {
-    isShiftOn = true;
+    keyboardStore.turnShiftOn();
   }
   if (
     (event.code === 'ShiftLeft' || event.code === 'ShiftRight') &&
     event.type === 'keyup'
   ) {
-    isShiftOn = false;
+    keyboardStore.turnShiftOff();
   }
 };
 
 const shiftEvent = (event, filteredArr) => {
+  const { isCapsOn } = keyboardStore;
+
   if (event.shiftKey && !isCapsOn) {
     disableBtnType(filteredArr, 'caseDown');
     disableBtnType(filteredArr, 'caps');
@@ -152,6 +154,8 @@ const backspaceEvent = (event, pos) => {
 };
 
 const ctrlAltEvent = (event, arr) => {
+  const { isCapsOn, isShiftOn } = keyboardStore;
+
   if (event.ctrlKey && event.altKey && event.type === 'keydown') {
     const activeLang = arr.filter(
       (elem) => !elem.classList.contains('hidden'),
