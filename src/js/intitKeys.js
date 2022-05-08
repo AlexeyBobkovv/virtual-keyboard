@@ -1,10 +1,9 @@
-import keyboardStore from '../store/store';
+import { keysArr } from './pressFuncs/pressHandle';
 
 const init = () => {
   const contentContainer = document.createElement('div');
   contentContainer.classList.add('container');
 
-  const { keysArr } = keyboardStore;
   const row1 = document.createElement('div');
   const row2 = document.createElement('div');
   const row3 = document.createElement('div');

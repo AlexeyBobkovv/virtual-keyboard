@@ -1,5 +1,8 @@
+/* eslint-disable import/no-mutable-exports */
 /* eslint-disable prefer-const */
 import keyboardStore from '../../store/store';
+import createKeys from '../../helpers/renderKeys';
+
 import {
   capsLckSwitch,
   capsLckEvent,
@@ -9,7 +12,11 @@ import {
   enterEvent,
   deleteEvent,
   backspaceEvent,
+  ctrlAltEvent,
 } from './keyEvents';
+
+let keyboardLanguage = localStorage.getItem('keyboardLanguage') || 'en';
+const keysArr = createKeys(keyboardLanguage);
 
 let { isCapsOn, isShiftOn } = keyboardStore;
 
@@ -28,7 +35,15 @@ const pressHandle = (event) => {
   deleteEvent(event, pos);
   backspaceEvent(event, pos);
 
-  keyboardStore.keysArr.forEach((el) => {
+  if (event.ctrlKey && event.altKey && event.type === 'keydown') {
+    if (keyboardLanguage === 'en') {
+      keyboardLanguage = 'ru';
+    } else {
+      keyboardLanguage = 'en';
+    }
+  }
+
+  keysArr.forEach((el) => {
     const arr = Array.from(el.children);
     const filteredArr = arr.filter(
       (elem) => !elem.classList.contains('hidden'),
@@ -39,17 +54,17 @@ const pressHandle = (event) => {
 
     if (
       !el.classList.contains('Tab') &&
+      !el.classList.contains('Enter') &&
       !el.classList.contains('CapsLock') &&
       !el.classList.contains('ShiftLeft') &&
+      !el.classList.contains('ShiftRight') &&
       !el.classList.contains('ControlLeft') &&
+      !el.classList.contains('ControlRight') &&
       !el.classList.contains('MetaLeft') &&
       !el.classList.contains('AltLeft') &&
       !el.classList.contains('AltRight') &&
-      !el.classList.contains('ControlRight') &&
       !el.classList.contains('Backspace') &&
       !el.classList.contains('Delete') &&
-      !el.classList.contains('Enter') &&
-      !el.classList.contains('ShiftRight') &&
       el.classList.contains(event.code) &&
       event.type !== 'keyup'
     ) {
@@ -58,7 +73,11 @@ const pressHandle = (event) => {
       )[0];
       textArea.setRangeText(textContent, pos, pos, 'end');
     }
+    ctrlAltEvent(event, arr);
   });
 };
 
-export default pressHandle;
+window.addEventListener('beforeunload', () =>
+  localStorage.setItem('keyboardLanguage', keyboardLanguage),
+);
+export { pressHandle, keysArr };

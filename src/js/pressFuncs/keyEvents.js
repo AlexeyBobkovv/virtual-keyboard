@@ -151,6 +151,38 @@ const backspaceEvent = (event, pos) => {
   }
 };
 
+const ctrlAltEvent = (event, arr) => {
+  if (event.ctrlKey && event.altKey && event.type === 'keydown') {
+    const activeLang = arr.filter(
+      (elem) => !elem.classList.contains('hidden'),
+    )[0];
+    const activeLangArr = Array.from(activeLang.children);
+    const hiddenLang = arr.filter((elem) =>
+      elem.classList.contains('hidden'),
+    )[0];
+    const hiddenLangArr = Array.from(hiddenLang.children);
+    activeLang.classList.add('hidden');
+    activeLangArr.forEach((elem) => elem.classList.add('hidden'));
+    hiddenLang.classList.remove('hidden');
+    hiddenLangArr.forEach((elem) => {
+      if (!isShiftOn && !isCapsOn) {
+        if (elem.classList.contains('caseDown'))
+          elem.classList.remove('hidden');
+      }
+      if (isShiftOn && !isCapsOn) {
+        if (elem.classList.contains('caseUp')) elem.classList.remove('hidden');
+      }
+      if (!isShiftOn && isCapsOn) {
+        if (elem.classList.contains('caps')) elem.classList.remove('hidden');
+      }
+      if (isShiftOn && isCapsOn) {
+        if (elem.classList.contains('shiftCaps'))
+          elem.classList.remove('hidden');
+      }
+    });
+  }
+};
+
 export {
   capsLckSwitch,
   capsLckEvent,
@@ -160,4 +192,5 @@ export {
   enterEvent,
   deleteEvent,
   backspaceEvent,
+  ctrlAltEvent,
 };

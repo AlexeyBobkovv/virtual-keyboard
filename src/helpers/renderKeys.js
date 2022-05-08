@@ -10,7 +10,6 @@ const createKeys = (lang) => {
 
     const langWrapperRu = document.createElement('span');
     const langWrapperEn = document.createElement('span');
-
     if (lang === 'en') {
       langWrapperRu.classList.add('ru', 'hidden');
       langWrapperEn.classList.add('en');
