@@ -36,6 +36,10 @@ const clickHandle = (event) => {
 
   capsLckSwitch(event);
   shiftSwitch(event);
+  tabEvent(event);
+  enterEvent(event);
+  deleteEvent(event, pos);
+  backspaceEvent(event);
 
   keysArr.forEach((el) => {
     const keyArr = Array.from(el.children);
@@ -65,11 +69,6 @@ const clickHandle = (event) => {
     )[0];
     textArea.setRangeText(textContent, pos, pos, 'end');
   }
-
-  tabEvent(event);
-  enterEvent(event);
-  deleteEvent(event, pos);
-  backspaceEvent(event);
 };
 
 export default clickHandle;
