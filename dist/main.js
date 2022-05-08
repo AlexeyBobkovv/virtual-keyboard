@@ -1,1 +1,0 @@
-!function(){"use strict";const e=new class{name="Violin Charades"},t=document.createElement("p");t.textContent=`I like ${e.game}.`;const n=document.createElement("h1");n.textContent="Как интересно!",document.querySelector("#root").append(n,t)}();

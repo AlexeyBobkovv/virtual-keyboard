@@ -5,16 +5,22 @@ import {
   capsLckEvent,
   shiftSwitch,
   shiftEvent,
+  tabEvent,
+  enterEvent,
 } from './keyEvents';
 
 let { isCapsOn, isShiftOn } = keyboardStore;
 
 const pressHandle = (event) => {
   event.preventDefault();
+
   const textArea = document.querySelector('#textarea');
+  let pos = textArea.selectionStart;
 
   capsLckSwitch(event);
   shiftSwitch(event);
+  tabEvent(event, pos);
+  enterEvent(event, pos);
 
   keyboardStore.keysArr.forEach((el) => {
     const arr = Array.from(el.children);
@@ -43,7 +49,7 @@ const pressHandle = (event) => {
       const { textContent } = Array.from(filteredArr).filter(
         (elem) => !elem.classList.contains('hidden'),
       )[0];
-      textArea.value += textContent;
+      textArea.setRangeText(textContent, pos, pos, 'end');
     }
   });
 };

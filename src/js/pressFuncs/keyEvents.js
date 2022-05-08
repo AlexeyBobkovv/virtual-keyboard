@@ -95,4 +95,27 @@ const shiftEvent = (event, filteredArr) => {
   }
 };
 
-export { capsLckSwitch, capsLckEvent, shiftSwitch, shiftEvent };
+const tabEvent = (event, pos) => {
+  const textArea = document.querySelector('#textarea');
+
+  if (event.code === 'Tab' && event.type === 'keydown') {
+    textArea.setRangeText('\t', pos, pos, 'end');
+  }
+};
+
+const enterEvent = (event, pos) => {
+  const textArea = document.querySelector('#textarea');
+
+  if (event.code === 'Enter' && event.type === 'keydown') {
+    textArea.setRangeText('\n', pos, pos, 'end');
+  }
+};
+
+export {
+  capsLckSwitch,
+  capsLckEvent,
+  shiftSwitch,
+  shiftEvent,
+  tabEvent,
+  enterEvent,
+};
